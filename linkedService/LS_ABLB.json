@@ -10,7 +10,7 @@
 					"referenceName": "LS_KV",
 					"type": "LinkedServiceReference"
 				},
-				"secretName": "ABLB-CONNECTION"
+				"secretName": "ABLB-XML-CONN"
 			}
 		},
 		"connectVia": {
