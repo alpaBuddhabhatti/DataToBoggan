@@ -1,0 +1,15 @@
+{
+	"name": "DS_XML_ASQL",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ASQL",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "XML"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": []
+	}
+}

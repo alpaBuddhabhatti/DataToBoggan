@@ -1,0 +1,29 @@
+{
+	"name": "DS_COMPLEX_XML",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ABLB",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"FileName": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "XML"
+		},
+		"annotations": [],
+		"type": "Xml",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@dataset().FileName",
+					"type": "Expression"
+				},
+				"container": "xmldemo"
+			}
+		}
+	}
+}
