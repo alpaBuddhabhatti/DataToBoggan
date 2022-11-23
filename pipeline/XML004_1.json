@@ -30,14 +30,70 @@
 						}
 					},
 					"sink": {
-						"type": "AzureSqlSink",
-						"writeBehavior": "insert",
-						"sqlWriterUseTableLock": false,
-						"tableOption": "autoCreate",
-						"disableMetricsCollection": false
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
 					},
-					"enableStaging": false
-				}
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['catalog']['book'][0]['author']"
+								},
+								"sink": {
+									"type": "String",
+									"ordinal": 1
+								}
+							},
+							{
+								"source": {
+									"path": "$['catalog']['book'][0]['title']"
+								},
+								"sink": {
+									"type": "String",
+									"ordinal": 2
+								}
+							},
+							{
+								"source": {
+									"path": "$['catalog']['book'][0]['languages']['language']"
+								},
+								"sink": {
+									"type": "String",
+									"ordinal": 3
+								}
+							}
+						],
+						"collectionReference": "$['catalog']['book']",
+						"mapComplexValuesToString": false
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_COMPLEX_XML",
+						"type": "DatasetReference",
+						"parameters": {
+							"FileName": {
+								"value": "File3.xml",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_CSV",
+						"type": "DatasetReference"
+					}
+				]
 			}
 		],
 		"folder": {
