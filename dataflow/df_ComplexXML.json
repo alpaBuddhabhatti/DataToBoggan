@@ -8,14 +8,26 @@
 		"typeProperties": {
 			"sources": [
 				{
+					"dataset": {
+						"referenceName": "DS_COMPLEX_XML",
+						"type": "DatasetReference"
+					},
 					"name": "sourceXML"
 				}
 			],
 			"sinks": [
 				{
+					"dataset": {
+						"referenceName": "DS_CSV",
+						"type": "DatasetReference"
+					},
 					"name": "sinkBlobBookLanguage"
 				},
 				{
+					"dataset": {
+						"referenceName": "DS_CSV",
+						"type": "DatasetReference"
+					},
 					"name": "sinkBlobBookType"
 				}
 			],
@@ -28,11 +40,11 @@
 				}
 			],
 			"scriptLines": [
-				"source(output(",
-				"          catalog as (book as ({@id} as string, author as string, description as string, genre as string, languages as (language as string[]), price as double, publish_date as date, title as string, types as ({_value_} as string, type as string[]))[])",
-				"     ),",
-				"     allowSchemaDrift: true,",
+				"source(allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     validationMode: 'none',",
+				"     namespaces: true,",
 				"     wildcardPaths:[('File3.xml')]) ~> sourceXML",
 				"sourceXML foldDown(unroll(catalog.book.languages.language, catalog.book.languages.language),",
 				"     mapColumn(",
@@ -52,10 +64,28 @@
 				"     skipDuplicateMapOutputs: false) ~> flattenType",
 				"flattenLanguages sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     input(",
+				"          Column_1 as string,",
+				"          Column_2 as string,",
+				"          Column_3 as string,",
+				"          Column_4 as string,",
+				"          Column_5 as string,",
+				"          Column_6 as string,",
+				"          Column_7 as string",
+				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> sinkBlobBookLanguage",
 				"flattenType sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     input(",
+				"          Column_1 as string,",
+				"          Column_2 as string,",
+				"          Column_3 as string,",
+				"          Column_4 as string,",
+				"          Column_5 as string,",
+				"          Column_6 as string,",
+				"          Column_7 as string",
+				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> sinkBlobBookType"
 			]
