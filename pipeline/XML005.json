@@ -1,10 +1,10 @@
 {
-	"name": "XML006",
+	"name": "XML005",
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy Simple XML File",
-				"type": "Copy",
+				"name": "Data flow",
+				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -15,32 +15,11 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"source": {
-						"type": "XmlSource",
-						"storeSettings": {
-							"type": "AzureBlobStorageReadSettings",
-							"recursive": true,
-							"enablePartitionDiscovery": false
-						},
-						"formatSettings": {
-							"type": "XmlReadSettings",
-							"validationMode": "none",
-							"detectDataType": true,
-							"namespaces": false
-						}
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
 					},
-					"sink": {
-						"type": "DelimitedTextSink",
-						"storeSettings": {
-							"type": "AzureBlobStorageWriteSettings"
-						},
-						"formatSettings": {
-							"type": "DelimitedTextWriteSettings",
-							"quoteAllText": true,
-							"fileExtension": ".txt"
-						}
-					},
-					"enableStaging": false
+					"traceLevel": "Fine"
 				}
 			}
 		],
