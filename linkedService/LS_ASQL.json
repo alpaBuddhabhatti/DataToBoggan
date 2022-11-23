@@ -11,7 +11,7 @@
 					"referenceName": "LS_KV",
 					"type": "LinkedServiceReference"
 				},
-				"secretName": "ASQL-DB-CONNECTION"
+				"secretName": "ASQL-XML-PASS"
 			}
 		},
 		"connectVia": {
