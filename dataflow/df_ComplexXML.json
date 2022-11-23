@@ -1,0 +1,64 @@
+{
+	"name": "df_ComplexXML",
+	"properties": {
+		"folder": {
+			"name": "XML"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"name": "sourceXML"
+				}
+			],
+			"sinks": [
+				{
+					"name": "sinkBlobBookLanguage"
+				},
+				{
+					"name": "sinkBlobBookType"
+				}
+			],
+			"transformations": [
+				{
+					"name": "flattenLanguages"
+				},
+				{
+					"name": "flattenType"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          catalog as (book as ({@id} as string, author as string, description as string, genre as string, languages as (language as string[]), price as double, publish_date as date, title as string, types as ({_value_} as string, type as string[]))[])",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     wildcardPaths:[('File3.xml')]) ~> sourceXML",
+				"sourceXML foldDown(unroll(catalog.book.languages.language, catalog.book.languages.language),",
+				"     mapColumn(",
+				"          language = catalog.book.languages.language,",
+				"          author = catalog.book.author,",
+				"          title = catalog.book.title",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> flattenLanguages",
+				"sourceXML foldDown(unroll(catalog.book.types.type),",
+				"     mapColumn(",
+				"          type = catalog.book.types.type,",
+				"          price = catalog.book.price,",
+				"          title = catalog.book.title",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> flattenType",
+				"flattenLanguages sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sinkBlobBookLanguage",
+				"flattenType sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sinkBlobBookType"
+			]
+		}
+	}
+}
