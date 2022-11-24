@@ -5,20 +5,23 @@
 		"workspaceName": {
 			"value": "firstsynapsesorkspace"
 		},
+		"LS_ASQL_connectionString": {
+			"value": ""
+		},
 		"firstsynapsesorkspace-WorkspaceDefaultSqlServer_connectionString": {
 			"value": ""
 		},
 		"LS_ABLB_properties_typeProperties_connectionString_secretName": {
-			"value": "ABLB-CONNECTION"
+			"value": "ABLB-XML-CONN"
+		},
+		"LS_KV_properties_typeProperties_baseUrl": {
+			"value": "https://dgs-kv.vault.azure.net/"
 		},
 		"LS_SQL_properties_typeProperties_connectionString_secretName": {
 			"value": "ASQL-DB-CONNECTION"
 		},
 		"firstsynapsesorkspace-WorkspaceDefaultStorage_properties_typeProperties_url": {
 			"value": "https://dlgstor.dfs.core.windows.net"
-		},
-		"LS_KV_properties_typeProperties_baseUrl": {
-			"value": "https://dgs-kv.vault.azure.net/"
 		}
 	}
 }
