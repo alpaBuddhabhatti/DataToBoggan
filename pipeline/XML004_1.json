@@ -96,6 +96,12 @@
 				]
 			}
 		],
+		"parameters": {
+			"outputfile": {
+				"type": "string",
+				"defaultValue": "file3.csv"
+			}
+		},
 		"folder": {
 			"name": "XML"
 		},

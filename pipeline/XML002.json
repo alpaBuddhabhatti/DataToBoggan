@@ -141,6 +141,12 @@
 				]
 			}
 		],
+		"parameters": {
+			"outfpufile": {
+				"type": "string",
+				"defaultValue": "file2.csv"
+			}
+		},
 		"folder": {
 			"name": "XML"
 		},

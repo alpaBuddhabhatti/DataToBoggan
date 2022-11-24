@@ -14,7 +14,7 @@
 			"location": {
 				"type": "AzureBlobStorageLocation",
 				"fileName": "test.csv",
-				"container": "movie-in"
+				"container": "xmldemoout"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
