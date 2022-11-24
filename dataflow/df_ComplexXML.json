@@ -76,8 +76,10 @@
 				"          Column_6 as string,",
 				"          Column_7 as string",
 				"     ),",
+				"     partitionFileNames:[('file3Lan.csv')],",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sinkBlobBookLanguage",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> sinkBlobBookLanguage",
 				"flattenType sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
@@ -89,8 +91,10 @@
 				"          Column_6 as string,",
 				"          Column_7 as string",
 				"     ),",
+				"     partitionFileNames:[('file3Type.csv')],",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sinkBlobBookType"
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> sinkBlobBookType"
 			]
 		}
 	}
