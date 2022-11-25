@@ -594,7 +594,12 @@
 							{
 								"referenceName": "DS_CSV",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"filename": {
+										"value": "@pipeline().parameters.outputfile",
+										"type": "Expression"
+									}
+								}
 							}
 						]
 					}
@@ -760,7 +765,12 @@
 							{
 								"referenceName": "DS_CSV",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"filename": {
+										"value": "@pipeline().parameters.outfpufile",
+										"type": "Expression"
+									}
+								}
 							}
 						]
 					}
@@ -926,7 +936,12 @@
 							{
 								"referenceName": "DS_CSV",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"filename": {
+										"value": "@pipeline().parameters.outputfile",
+										"type": "Expression"
+									}
+								}
 							}
 						]
 					}
@@ -1091,7 +1106,12 @@
 							{
 								"referenceName": "DS_CSV",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"filename": {
+										"value": "@pipeline().parameters.outputfile",
+										"type": "Expression"
+									}
+								}
 							}
 						]
 					}
@@ -1103,7 +1123,7 @@
 				"parameters": {
 					"outputfile": {
 						"type": "string",
-						"defaultValue": "file3.csv"
+						"defaultValue": "file4.csv"
 					}
 				},
 				"folder": {
@@ -1212,7 +1232,12 @@
 							{
 								"referenceName": "DS_CSV",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"filename": {
+										"value": "@pipeline().parameters.outputfile",
+										"type": "Expression"
+									}
+								}
 							}
 						]
 					}
@@ -1224,7 +1249,7 @@
 				"parameters": {
 					"outputfile": {
 						"type": "string",
-						"defaultValue": "file3.csv"
+						"defaultValue": "file4.1.csv"
 					}
 				},
 				"folder": {
@@ -1264,8 +1289,20 @@
 									"sourceXML": {
 										"FileName": "file3.csv"
 									},
-									"sinkBlobBookLanguage": {},
-									"sinkBlobBookType": {}
+									"sinkBlobBookLanguage": {
+										"filename": "fileLanguage.csv"
+									},
+									"sinkBlobBookType": {
+										"filename": "filetype.csv"
+									},
+									"sinkSQLBookType": {
+										"TableName": "tblType",
+										"SchemaName": "dbo"
+									},
+									"sinkSQLBookLanguage": {
+										"TableName": "tblLanguage",
+										"SchemaName": "dbo"
+									}
 								}
 							},
 							"staging": {},
@@ -1661,6 +1698,11 @@
 					"referenceName": "LS_ABLB",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"filename": {
+						"type": "string"
+					}
+				},
 				"folder": {
 					"name": "XML"
 				},
@@ -1669,7 +1711,10 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"fileName": "test.csv",
+						"fileName": {
+							"value": "@dataset().filename",
+							"type": "Expression"
+						},
 						"container": "xmldemoout"
 					},
 					"columnDelimiter": ",",
@@ -2105,6 +2150,20 @@
 								"type": "DatasetReference"
 							},
 							"name": "sinkBlobBookType"
+						},
+						{
+							"dataset": {
+								"referenceName": "DS_ASQL_DF",
+								"type": "DatasetReference"
+							},
+							"name": "sinkSQLBookType"
+						},
+						{
+							"dataset": {
+								"referenceName": "DS_ASQL_DF",
+								"type": "DatasetReference"
+							},
+							"name": "sinkSQLBookLanguage"
 						}
 					],
 					"transformations": [
@@ -2170,13 +2229,36 @@
 						"     partitionFileNames:[('file3Type.csv')],",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true,",
-						"     partitionBy('hash', 1)) ~> sinkBlobBookType"
+						"     partitionBy('hash', 1)) ~> sinkBlobBookType",
+						"flattenType sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     truncate:true,",
+						"     format: 'table',",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> sinkSQLBookType",
+						"flattenLanguages sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     truncate:true,",
+						"     format: 'table',",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> sinkSQLBookLanguage"
 					]
 				}
 			},
 			"dependsOn": [
 				"[concat(variables('workspaceId'), '/datasets/DS_COMPLEX_XML')]",
-				"[concat(variables('workspaceId'), '/datasets/DS_CSV')]"
+				"[concat(variables('workspaceId'), '/datasets/DS_CSV')]",
+				"[concat(variables('workspaceId'), '/datasets/DS_ASQL_DF')]"
 			]
 		},
 		{
