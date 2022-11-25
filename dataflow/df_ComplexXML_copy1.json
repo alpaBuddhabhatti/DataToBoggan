@@ -29,13 +29,6 @@
 						"type": "DatasetReference"
 					},
 					"name": "sinkSQLBookLanguage"
-				},
-				{
-					"dataset": {
-						"referenceName": "DS_ASQL_DF",
-						"type": "DatasetReference"
-					},
-					"name": "sinktabBooks"
 				}
 			],
 			"transformations": [
@@ -44,9 +37,6 @@
 				},
 				{
 					"name": "flattenType"
-				},
-				{
-					"name": "selectBooks"
 				}
 			],
 			"scriptLines": [
@@ -75,17 +65,6 @@
 				"     ),",
 				"     skipDuplicateMapInputs: false,",
 				"     skipDuplicateMapOutputs: false) ~> flattenType",
-				"sourceXML select(mapColumn(",
-				"          catalog = catalog.book[1].{@id},",
-				"          author = catalog.book[1].author,",
-				"          description = catalog.book[1].description,",
-				"          genre = catalog.book[1].genre,",
-				"          price = catalog.book[1].price,",
-				"          publish_date = catalog.book[1].publish_date,",
-				"          title = catalog.book[1].title",
-				"     ),",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> selectBooks",
 				"flattenType sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
@@ -103,18 +82,7 @@
 				"     upsertable:false,",
 				"     truncate:true,",
 				"     format: 'table',",
-				"     errorHandlingOption: 'stopOnFirstError') ~> sinkSQLBookLanguage",
-				"selectBooks sink(allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     deletable:false,",
-				"     insertable:true,",
-				"     updateable:false,",
-				"     upsertable:false,",
-				"     recreate:true,",
-				"     format: 'table',",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true,",
-				"     errorHandlingOption: 'stopOnFirstError') ~> sinktabBooks"
+				"     errorHandlingOption: 'stopOnFirstError') ~> sinkSQLBookLanguage"
 			]
 		}
 	}
