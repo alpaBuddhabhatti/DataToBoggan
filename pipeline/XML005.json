@@ -27,6 +27,14 @@
 							},
 							"sinkBlobBookType": {
 								"filename": "filetype.csv"
+							},
+							"sink1": {
+								"TableName": "tblLanguage",
+								"SchemaName": "dbo"
+							},
+							"sink2": {
+								"TableName": "tblType",
+								"SchemaName": "dbo"
 							}
 						}
 					},
