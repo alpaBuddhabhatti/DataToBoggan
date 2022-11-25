@@ -21,6 +21,12 @@
 						"datasetParameters": {
 							"sourceXML": {
 								"FileName": "file3.csv"
+							},
+							"sinkBlobBookLanguage": {
+								"filename": "fileLanguage.csv"
+							},
+							"sinkBlobBookType": {
+								"filename": "filetype.csv"
 							}
 						}
 					},
