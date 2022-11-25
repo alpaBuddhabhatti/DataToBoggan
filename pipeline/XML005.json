@@ -29,11 +29,11 @@
 								"filename": "filetype.csv"
 							},
 							"sinkSQLBookType": {
-								"TableName": "tblLanguage",
+								"TableName": "tblType",
 								"SchemaName": "dbo"
 							},
 							"sinkSQLBookLanguage": {
-								"TableName": "tblType",
+								"TableName": "tblLanguage",
 								"SchemaName": "dbo"
 							}
 						}
