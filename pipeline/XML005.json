@@ -35,6 +35,10 @@
 							"sinkSQLBookLanguage": {
 								"TableName": "tblLanguage",
 								"SchemaName": "dbo"
+							},
+							"sinktabBooks": {
+								"TableName": "tblBooks",
+								"SchemaName": "dbo"
 							}
 						}
 					},
