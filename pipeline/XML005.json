@@ -28,11 +28,11 @@
 							"sinkBlobBookType": {
 								"filename": "filetype.csv"
 							},
-							"sink1": {
+							"sinkSQLBookType": {
 								"TableName": "tblLanguage",
 								"SchemaName": "dbo"
 							},
-							"sink2": {
+							"sinkSQLBookLanguage": {
 								"TableName": "tblType",
 								"SchemaName": "dbo"
 							}

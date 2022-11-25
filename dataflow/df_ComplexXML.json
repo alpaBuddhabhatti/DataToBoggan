@@ -35,14 +35,14 @@
 						"referenceName": "DS_ASQL_DF",
 						"type": "DatasetReference"
 					},
-					"name": "sink1"
+					"name": "sinkSQLBookType"
 				},
 				{
 					"dataset": {
 						"referenceName": "DS_ASQL_DF",
 						"type": "DatasetReference"
 					},
-					"name": "sink2"
+					"name": "sinkSQLBookLanguage"
 				}
 			],
 			"transformations": [
@@ -118,7 +118,7 @@
 				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     errorHandlingOption: 'stopOnFirstError') ~> sink1",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sinkSQLBookType",
 				"flattenLanguages sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
@@ -128,7 +128,7 @@
 				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     errorHandlingOption: 'stopOnFirstError') ~> sink2"
+				"     errorHandlingOption: 'stopOnFirstError') ~> sinkSQLBookLanguage"
 			]
 		}
 	}
